@@ -8,9 +8,6 @@ map('n', '<leader>b', ':NERDTreeToggle<CR>')
 map('n', '<Esc>', '<C-\\><C-n>')
 map('n', '<Esc>', ':noh<CR>')
 
-map('n', '<A-p>', ':FZF<CR>')
-map('n', '<A-f>', ':Ag<CR>')
-
 map('n', '<A-w>', '<C-w>')
 
 map('n', '<A-n><A-n>', ':set invrelativenumber <CR>')
@@ -29,9 +26,9 @@ map('n', '<leader>y', '"*y')
 map('v', '<leader>y', '"*y')
 
 
-  
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+  
+map('n', '<A-p>', builtin.find_files, {})
+map('n', '<A-f>', builtin.live_grep, {})
+map('n', '<A-b>', builtin.buffers, {})
+--map('n', '<leader>fh', builtin.help_tags, {})

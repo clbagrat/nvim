@@ -149,3 +149,10 @@ cmp.event:on(
   cmp_autopairs.on_confirm_done()
 )
 
+
+-- telescope
+require('telescope').setup{
+  defaults = {
+    path_display={truncate=3}
+  }
+}

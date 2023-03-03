@@ -19,9 +19,6 @@ return require('packer').startup({
 
         use 'preservim/nerdtree'
 
-        use {'junegunn/fzf', run = function() vim.fn['fzf#install'](0) end}
-        use 'junegunn/fzf.vim'
-
         use { 
           'williamboman/mason.nvim', 
           'williamboman/mason-lspconfig.nvim', 
@@ -52,7 +49,7 @@ return require('packer').startup({
 
         use {
           'nvim-telescope/telescope.nvim', tag = '0.1.1',
-          requires = { {'nvim-lua/plenary.nvim'} }
+          requires = { {'nvim-lua/plenary.nvim'} },
         }
 
         use({
