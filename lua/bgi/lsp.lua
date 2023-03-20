@@ -94,13 +94,14 @@ require('lspconfig')['eslint'].setup {
 require('lspconfig')['omnisharp'].setup {
   use_mono = true,
   flags = lsp_flags,
-  capabilities = capabilities
+  capabilities = capabilities,
+  on_attach = on_attach,
 } 
 
 require('lspconfig')['gdscript'].setup {
   flags = lsp_flags,
   capabilities = capabilities,
-  on_attach = function ()  vim.o.shiftwidth = 8; vim.o.expandtab = false; end
+  on_attach = function (cli, buffN)  on_attach(cli, buffN); vim.o.shiftwidth = 8; vim.o.expandtab = false; end
 }
 
 -- Prettier
