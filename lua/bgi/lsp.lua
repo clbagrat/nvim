@@ -69,7 +69,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('mason').setup() 
 
 require('mason-lspconfig').setup({
-  ensure_installed = { 'tsserver', 'eslint', 'omnisharp', 'clangd' },
+  ensure_installed = { 'tsserver', 'eslint', 'omnisharp', 'clangd', 'hls' },
   automatic_installation = true
 })
 
@@ -80,6 +80,13 @@ require('lspconfig')['tsserver'].setup {
 }
 
 require('lspconfig')['clangd'].setup {
+  flags = lsp_flags,
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+
+require('lspconfig')['hls'].setup {
   flags = lsp_flags,
   on_attach = on_attach,
   capabilities = capabilities
@@ -123,7 +130,7 @@ require('lspconfig')['gdscript'].setup {
 -- ColorCoding
 require("nvim-treesitter").setup() 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'javascript', 'typescript', 'c_sharp', 'gdscript', 'cpp' },
+  ensure_installed = { 'javascript', 'typescript', 'c_sharp', 'gdscript', 'cpp', 'haskell' },
   highlight = {
     enable = true,
     disable = { "lua" }
