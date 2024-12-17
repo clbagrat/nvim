@@ -15,10 +15,14 @@ map('n', '<A-n><A-n>', ':set invrelativenumber <CR>')
 
 map('n', '<leader>F', ':Format <CR>')
 
-map('n', '<A-j>', '<CMD>move .+1<CR>')
-map('n', '<A-k>', '<CMD>move .-2<CR>')
-map('x', '<A-j>', ":move '>+1<CR>gv=gv")
-map('x', '<A-k>', ":move '<-2<CR>gv=gv")
+map('n', '<S-A-j>', '<CMD>move .+1<CR>')
+map('n', '<S-A-k>', '<CMD>move .-2<CR>')
+map('x', '<S-A-j>', ":move '>+1<CR>gv=gv")
+map('x', '<S-A-k>', ":move '<-2<CR>gv=gv")
+
+map('n', '<leader>j', ':cnext<CR>')
+map('n', '<leader>k', ':cprev<cr>')
+map('n', '<leader>o', ':copen<CR>')
 
 map('n', '<leader>p', '"*p')
 map('v', '<leader>p', '"*p')
