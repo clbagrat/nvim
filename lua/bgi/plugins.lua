@@ -17,7 +17,10 @@ return require('packer').startup({
 
         use 'mhartington/oceanic-next'
 
-        use 'preservim/nerdtree'
+        use {
+          'preservim/nerdtree',
+          'Xuyuanp/nerdtree-git-plugin'
+        }
 
         use { 
           'williamboman/mason.nvim', 

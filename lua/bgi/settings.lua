@@ -29,3 +29,8 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 
 vim.cmd('colorscheme OceanicNext');
+
+-- nerdtree
+vim.g.NERDTreeGitStatusConcealBrackets = 1
+vim.g.NERDTreeRespectWildIgnore = 1
+vim.g.NERDTreeIgnore={'\\~$', '\\.gen\\.d\\.ts$', '\\.gen\\.d\\.ts\\.map'}
