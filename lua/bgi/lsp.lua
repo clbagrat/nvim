@@ -68,10 +68,10 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
  
 require('mason').setup() 
 
-require('mason-lspconfig').setup({
-  ensure_installed = { 'ts_ls', 'eslint', 'omnisharp', 'clangd', 'hls' },
-  automatic_installation = true
-})
+--require('mason-lspconfig').setup({
+--  ensure_installed = { 'ts_ls', 'eslint', 'omnisharp', 'clangd', 'hls' },
+--  automatic_installation = true
+--})
 
 require('lspconfig')['ts_ls'].setup {
   flags = lsp_flags,

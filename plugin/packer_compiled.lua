@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/Users/bagrat/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/Users/bagrat/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/Users/bagrat/.local/share/nvim/site/pack/packer/start/formatter.nvim",
@@ -173,11 +178,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/bagrat/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
-  },
-  ["vim-devicons"] = {
-    loaded = true,
-    path = "/Users/bagrat/.local/share/nvim/site/pack/packer/start/vim-devicons",
-    url = "https://github.com/ryanoasis/vim-devicons"
   }
 }
 

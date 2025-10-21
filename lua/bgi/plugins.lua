@@ -17,6 +17,8 @@ return require('packer').startup({
 
         use 'mhartington/oceanic-next'
 
+        use 'github/copilot.vim'
+
         use {
           'preservim/nerdtree',
           'Xuyuanp/nerdtree-git-plugin'
