@@ -5,7 +5,8 @@ end
 map('n', '<leader>s', ':NERDTreeFind<CR>')
 map('n', '<leader>b', ':NERDTreeToggle<CR>')
 
-map('n', '<Esc>', '<C-\\><C-n>')
+map('t', '<Esc>', '<C-\\><C-n>')
+map('n', '<leader>t', ':vert rightbelow split | :term cd %:p:h && zsh<CR>')
 map('n', '<Esc>', ':noh<CR>')
 
 map('n', '<A-w>', '<C-w>')
