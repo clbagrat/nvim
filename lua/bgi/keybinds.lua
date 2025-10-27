@@ -34,6 +34,10 @@ map('v', '<leader>y', '"*y')
 local builtin = require('telescope.builtin')
   
 map('n', '<A-p>', builtin.find_files, {})
-map('n', '<A-f>', builtin.live_grep, {})
 map('n', '<A-b>', builtin.buffers, {})
 --map('n', '<leader>fh', builtin.help_tags, {})
+
+local multigrep = require("bgi.multigrep");
+map('n', '<A-f>', multigrep.multigrep, {})
+
+-- map('n', '<C-f>', builtin.live_grep, {})
