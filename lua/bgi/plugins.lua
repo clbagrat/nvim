@@ -39,6 +39,7 @@ return require('packer').startup({
           'L3MON4D3/LuaSnip',
           'saadparwaiz1/cmp_luasnip',
           'windwp/nvim-autopairs',
+          version = false
         } 
 
         use {

@@ -37,79 +37,65 @@ cmp.setup.cmdline(':', {
  
 -- LSP
 
-local lsp_flags = {
-  debounce_text_changes = 150,
-}
-
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<A-e>', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>c', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
-
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
- 
+
+vim.lsp.config('*', {
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+})
+
+local diagnostics_opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<A-e>', vim.diagnostic.open_float, diagnostics_opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, diagnostics_opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, diagnostics_opts)
+
+local servers = { 'ts_ls', 'clangd', 'hls', 'eslint', 'omnisharp'}
+
+local lsp_attach_group = vim.api.nvim_create_augroup('bgi-lsp-attach', { clear = true })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = lsp_attach_group,
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if not client then
+      return
+    end
+
+    local bufnr = event.buf
+
+    if not vim.b[bufnr].bgi_lsp_mapped then
+      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+      local bufopts = { noremap = true, silent = true, buffer = bufnr }
+      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+      vim.keymap.set('n', '<leader>c', vim.lsp.buf.code_action, bufopts)
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+      vim.keymap.set('n', '<leader>f', function()
+        vim.lsp.buf.format({ async = true })
+      end, bufopts)
+
+      vim.b[bufnr].bgi_lsp_mapped = true
+    end
+  end,
+})
+
 require('mason').setup() 
 
---require('mason-lspconfig').setup({
---  ensure_installed = { 'ts_ls', 'eslint', 'omnisharp', 'clangd', 'hls' },
---  automatic_installation = true
---})
+require('mason-lspconfig').setup({
+  ensure_installed = servers,
+  automatic_enable = false,
+})
 
-require('lspconfig')['ts_ls'].setup {
-  flags = lsp_flags,
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-require('lspconfig')['clangd'].setup {
-  flags = lsp_flags,
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-
-require('lspconfig')['hls'].setup {
-  flags = lsp_flags,
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-
-require('lspconfig')['eslint'].setup {
-  flags = lsp_flags,
-  capabilities = capabilities
-}
-
-require('lspconfig')['omnisharp'].setup {
-  use_mono = true,
-  flags = lsp_flags,
-  capabilities = capabilities,
-  on_attach = on_attach,
-} 
-
-require('lspconfig')['gdscript'].setup {
-  flags = lsp_flags,
-  capabilities = capabilities,
-  on_attach = function (cli, buffN)  on_attach(cli, buffN); vim.o.shiftwidth = 8; vim.o.expandtab = false; end
-}
+for _, server in ipairs(servers) do
+  vim.lsp.enable(server)
+end
 
 -- Prettier
 --require('formatter').setup({
@@ -130,13 +116,10 @@ require('lspconfig')['gdscript'].setup {
 -- ColorCoding
 require("nvim-treesitter").setup() 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'javascript', 'typescript', 'c_sharp', 'gdscript', 'cpp', 'haskell' },
+  ensure_installed = { 'javascript', 'typescript', 'c_sharp', 'cpp', 'haskell' },
   highlight = {
     enable = true,
     disable = { "lua" }
-  },
-  indent = {
-    disable = { "gdscript" }
   }
 }
 
